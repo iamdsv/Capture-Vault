@@ -1,0 +1,7 @@
+{
+  "name": "Capture",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}

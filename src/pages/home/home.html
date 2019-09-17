@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title><ion-icon name="lock"></ion-icon>&nbsp;Vault</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+<ion-card>
+    <ion-card-content>
+      <ion-card-title>
+        Capture Image
+        </ion-card-title>
+        <button ion-button icon-start (click)="takePicture()">
+          <ion-icon name="camera"></ion-icon>
+          Take a picture
+        </button>
+        <button ion-button icon-start (click)="goToGallery()">
+            <ion-icon name="images"></ion-icon>
+            Go to gallery
+          </button>
+    </ion-card-content>
+    <img src="{{image}}"/>
+  </ion-card>
+  <ion-card>
+    <ion-card-content>
+      <ion-card-title>
+        Capture Voice
+      </ion-card-title>
+      <button ion-button primary (click)="stopRecord()" *ngIf="recording && !pause"><ion-icon name="mic-off"></ion-icon>&nbsp;&nbsp;Stop Recording</button>
+      <button ion-button primary (click)="pauseRecord()" *ngIf="recording && !pause"><ion-icon name="pause"></ion-icon>&nbsp;&nbsp;Pause</button>
+      <button ion-button primary (click)="startRecord()" *ngIf="!recording"><ion-icon name="mic"></ion-icon>&nbsp;&nbsp;Start Recording</button>
+      <button ion-button primary (click)="resumeRecord()" *ngIf="recording && pause"><ion-icon name="mic"></ion-icon>&nbsp;&nbsp;Resume Recording</button>
+      <button ion-button primary (click)="cancelRecord()" *ngIf="recording && pause"><ion-icon name="Cancel"></ion-icon>&nbsp;&nbsp;Cancel</button>
+      <button ion-button icon-start (click)="goToRecordings()">
+          <ion-icon name="microphone"></ion-icon>
+          Go to recordings
+        </button>
+    </ion-card-content>
+    <ion-list>
+        <ion-item *ngFor="let audio of audioList | slice: 0:3; index as i;">
+          <p>{{audio.filename}}</p>
+          <button ion-button clear item-end large (click)="playAudio(audio.filename, i)" *ngIf="currentPlaying!=i"><ion-icon name="play"></ion-icon></button>
+          <button ion-button clear item-end large (click)="pauseAudio(audio.filename, i)" *ngIf="currentPlaying==i"><ion-icon name="pause"></ion-icon></button>
+            </ion-item>
+      </ion-list>
+  </ion-card>
+  <!--<button ion-button secondary menuToggle>Toggle Menu</button>-->
+</ion-content>
